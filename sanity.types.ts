@@ -511,6 +511,77 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes = Navigation | SiteSettings | SanityImageCrop | SanityImageHotspot | Contact | Achievement | Certification | Education | Experience | Skill | Project | Slug | Profile | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./components/sections/AboutSection.tsx
+// Variable: ABOUT_QUERY
+// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  fullBio,  yearsOfExperience,  stats,  email,  phone,  location}
+export type ABOUT_QUERYResult = {
+  firstName: null;
+  lastName: null;
+  fullBio: null;
+  yearsOfExperience: null;
+  stats: null;
+  email: null;
+  phone: null;
+  location: null;
+} | {
+  firstName: null;
+  lastName: null;
+  fullBio: null;
+  yearsOfExperience: number | null;
+  stats: null;
+  email: null;
+  phone: null;
+  location: null;
+} | {
+  firstName: null;
+  lastName: null;
+  fullBio: null;
+  yearsOfExperience: null;
+  stats: null;
+  email: null;
+  phone: null;
+  location: string | null;
+} | {
+  firstName: null;
+  lastName: null;
+  fullBio: null;
+  yearsOfExperience: null;
+  stats: null;
+  email: string | null;
+  phone: null;
+  location: null;
+} | {
+  firstName: string | null;
+  lastName: string | null;
+  fullBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  yearsOfExperience: number | null;
+  stats: Array<{
+    label?: string;
+    value?: string;
+    _key: string;
+  }> | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+} | null;
+
 // Source: ./components/sections/HeroSection.tsx
 // Variable: HERO_QUERY
 // Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage}
@@ -616,6 +687,7 @@ export type HERO_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  fullBio,\n  yearsOfExperience,\n  stats,\n  email,\n  phone,\n  location\n}": ABOUT_QUERYResult;
     "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage\n}": HERO_QUERYResult;
   }
 }
