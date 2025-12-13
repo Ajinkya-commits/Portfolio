@@ -3,7 +3,7 @@ import { defineQuery } from "next-sanity";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import Link from "next/link";
 import { LayoutTextFlip } from "../ui/layout-text-flip";
-import { ProfileImage } from "./ProfileImage";
+import { ProfileImage } from "../ProfileImage";
 import { urlFor } from "@/sanity/lib/image";
 
 const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
