@@ -3,9 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SanityLive } from "@/sanity/lib/live";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import SidebarToggle from "@/components/SidebarToggle";
+import { FloatingDock } from "@/components/FloatingDock";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { ModeToggle } from "@/components/ui/DarkModeToggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,16 +33,22 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <SidebarProvider>
-            <SidebarInset>{children}</SidebarInset>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <FloatingDock />
+            <div className="fixed md:bottom-6 md:right-24 top-4 right-18 md:top-auto md:left-auto z-20">
+              <div className="w-10 h-10 md:w-12 md:h-12">
+                <ModeToggle />
+              </div>
+            </div>
 
-            <AppSidebar side="right" />
-            {/* {/* <FloatingDock/> */}
-
-            <SidebarToggle/> 
-          </SidebarProvider>
-
-          <SanityLive />
+            <SanityLive />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
