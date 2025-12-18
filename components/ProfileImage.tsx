@@ -1,7 +1,6 @@
 "use client";
 
-import { useClerk, useUser } from "@clerk/nextjs";
-import { MessageCircle, X } from "lucide-react";
+
 import Image from "next/image";
 import { useState } from "react";
 
@@ -17,8 +16,6 @@ export function ProfileImage({
   lastName,
 }: ProfileImageProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const { isSignedIn } = useUser();
-  const { openSignIn } = useClerk();
   console.log("PROFILE IMAGE URL:", imageUrl);
 
   return (
