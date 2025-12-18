@@ -67,10 +67,8 @@ export function FloatingDockClient({ navItems }: FloatingDockClientProps) {
 
   return (
     <>
-      {/* Desktop: Horizontal dock - bottom left on md, bottom center on lg+ */}
-      <div
-        className={`hidden md:block fixed z-30 transition-all duration-300 pointer-events-none group/dock `}
-      >
+      {/* Desktop: bottom left on md, bottom center on lg+ */}
+      <div className="hidden md:block fixed bottom-6 left-6 lg:left-1/2 lg:-translate-x-1/2 z-30 pointer-events-none group/dock">
         <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl md:rounded-2xl bg-white/20 dark:bg-black/30 hover:bg-white/30 dark:hover:bg-black/40 backdrop-blur-xl border border-white/30 dark:border-white/20 hover:border-white/40 dark:hover:border-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] pointer-events-auto transition-all duration-300">
           {desktop.visible.map((item) => (
             <DockIcon
