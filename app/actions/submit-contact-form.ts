@@ -1,6 +1,7 @@
 "use server";
 
 import { serverClient } from "@/sanity/lib/serverClient";
+import { sendContactEmail } from "./send-email";
 
 export async function submitContactForm(formData: FormData) {
   try {
@@ -9,7 +10,6 @@ export async function submitContactForm(formData: FormData) {
     const subject = formData.get("subject") as string;
     const message = formData.get("message") as string;
 
-    // Validate the required fields
     if (!name || !email || !message) {
       return {
         success: false,
@@ -17,7 +17,6 @@ export async function submitContactForm(formData: FormData) {
       };
     }
 
-    // Create the document in Sanity
     const result = await serverClient.create({
       _type: "contact",
       name,
@@ -27,6 +26,11 @@ export async function submitContactForm(formData: FormData) {
       submittedAt: new Date().toISOString(),
       status: "new",
     });
+
+    // Send email notification (best-effort — don't fail the form if email fails)
+    await sendContactEmail({ name, email, subject, message }).catch((err) =>
+      console.error("Email notification failed:", err),
+    );
 
     return {
       success: true,
