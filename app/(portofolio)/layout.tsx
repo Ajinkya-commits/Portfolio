@@ -5,6 +5,8 @@ import { SanityLive } from "@/sanity/lib/live";
 import { FloatingDock } from "@/components/FloatingDock";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { ModeToggle } from "@/components/ui/DarkModeToggle";
+import { ChatProvider } from "@/components/ChatContext";
+import { ChatSidebar } from "@/components/ChatSidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,15 +40,18 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
-            <FloatingDock />
-            <div className="fixed md:bottom-6 md:right-24 top-4 right-18 md:top-auto md:left-auto z-20">
-              <div className="w-10 h-10 md:w-12 md:h-12">
-                <ModeToggle />
+            <ChatProvider>
+              {children}
+              <FloatingDock />
+              <div className="fixed md:bottom-6 md:right-24 top-4 right-18 md:top-auto md:left-auto z-20">
+                <div className="w-10 h-10 md:w-12 md:h-12">
+                  <ModeToggle />
+                </div>
               </div>
-            </div>
 
-            <SanityLive />
+              <SanityLive />
+              <ChatSidebar />
+            </ChatProvider>
           </ThemeProvider>
         </body>
       </html>

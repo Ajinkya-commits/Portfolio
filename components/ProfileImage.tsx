@@ -3,6 +3,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useChatSidebar } from "./ChatContext";
 
 interface ProfileImageProps {
   imageUrl: string;
@@ -16,6 +17,7 @@ export function ProfileImage({
   lastName,
 }: ProfileImageProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const { toggleSidebar } = useChatSidebar();
   console.log("PROFILE IMAGE URL:", imageUrl);
 
   return (
@@ -24,6 +26,7 @@ export function ProfileImage({
       className="relative aspect-square rounded-2xl overflow-hidden border-4 border-primary/20 block group cursor-pointer w-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={toggleSidebar}
       aria-label="Toggle AI Chat Sidebar"
     >
       <Image
@@ -45,10 +48,40 @@ export function ProfileImage({
 
       {/* Hover Overlay */}
       <div
-        className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center gap-3 transition-opacity duration-300 ${
           isHovered ? "opacity-100" : "opacity-0"
         }`}
       >
+        <span className={`text-5xl transition-all duration-300 ${isHovered ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}>💬</span>
+        <span className="text-white text-lg font-semibold px-4 text-center leading-relaxed">
+          {"Tap to chat with".split(" ").map((word, i) => (
+            <span
+              key={word + i}
+              className="inline-block transition-all duration-300"
+              style={{
+                transitionDelay: isHovered ? `${i * 80}ms` : "0ms",
+                opacity: isHovered ? 1 : 0,
+                transform: isHovered ? "translateY(0)" : "translateY(8px)",
+              }}
+            >
+              {word}&nbsp;
+            </span>
+          ))}
+          <br />
+          {"my AI Twin".split(" ").map((word, i) => (
+            <span
+              key={word + i}
+              className="inline-block transition-all duration-300 text-primary"
+              style={{
+                transitionDelay: isHovered ? `${(i + 4) * 80}ms` : "0ms",
+                opacity: isHovered ? 1 : 0,
+                transform: isHovered ? "translateY(0)" : "translateY(8px)",
+              }}
+            >
+              {word}&nbsp;
+            </span>
+          ))}
+        </span>
       </div>
     </button>
   );
